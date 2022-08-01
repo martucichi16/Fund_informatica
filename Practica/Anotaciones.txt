@@ -1,0 +1,52 @@
+-No entra base de datos, entra archivos (csv y json) --> Hasta diapositiva 36
+
+-Lo primero que hacemos es, ademas de organizar las carpetas y eso, descargar el csv, abrirlo en
+notas, copiarlo y pegarlo en un archivo csv ("books.csv")
+
+-Diferencia entre query y path params: el query es optativo mientras que el path es obligatorio. A su vez la idea de
+los query es flexibilizar el endpoint, que dependiendo de lo que le paso por query params se comporte de manera
+distinta. Por lo general el path param se usa para acceder a un elemento en especifico
+
+-En los endpoints no suele usarse el _ sino el -
+
+
+
+-------------------------------------------------------------------------------------------------------------
+Carpetas:
+• src/db: csv + archivo con funciones relacionadas a la persistencia y leer el csv
+• src/models: clases (POO)
+• src: main.py
+
+
+
+
+db_manager.py:
+• load_csv(): leer el csv con la info default y armar una lista con objetos para utilizar en nuestro main
+        -rows = csv.DictReader(books_file): con esta linea de codigo obtenemos una lista de objetos, que al
+        recorrerla podemos tratar cada objeto como un diccionario
+
+• save_...(): funcion de persistencia para guardar la info que queramos persistir en un archivo csv
+        - Guardar en una variable "headers" la primera linea con los encabezados
+        - writer = csv.DictWriter(archivo_para_persistir, fieldnames=headers)
+        - Hacer un if indicando que si el archivo está "limpio" (file.tell() == 0) que haga writer.writeheader()
+        - Despues del if, que solo se ejecutara si está vacio el archivo, guardar la nueva linea (que va a estar
+         dada por el body escritp en PostMan al hacer el metodo POST) a traves de writer.writerow(purchase)
+
+
+
+
+models: siempre crear el serialize para los objetos, y en el caso de querer devolver en Postman json con distitnos
+datos del objeto crear más de un serialize (uno por cada diccionario distinto que se quiera devolver)
+
+
+
+
+main.py:
+        - Siempre "from flask import Flask, jsonify, request" al inicio
+        - Para importar clases o funciones de otros arcivos recordar que para escribir el path no se usa el / sino el .
+        - Hacer una lista de dicc para hacer jsonify a partir de una lista de objetos:
+          jsonify([objeto.serialize() for objeto in lista_objetos])
+        - Devolver un error: jsonify(status=404, description="Book not found"), 404
+        - Query para GET: se guarda a traves de [param = request.args.get("language", "")]. param va a guardar el
+          valor del parametro que le pasamos (ej.: ES o EN).
+        - Acceder al valor del query param: request.args["user_id"]

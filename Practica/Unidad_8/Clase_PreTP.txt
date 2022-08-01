@@ -1,0 +1,30 @@
+Clase Práctica 14/06/22
+-Vemos el ejemplo del banco resuelto desde el codigo
+
+• Endpoint: la dirección ("/..."). Puede ser con los distintos metodos
+GET
+POST
+PUT
+DELETE
+
+Path param: <...> (nosotras lo usamos con el id para buscar al usuario)
+
+
+[Ver de 13:45 a 14:00] ---> serialize
+
+
+Parametros (14:50):
+
+@app.route("...", methods=["GET"]
+
+----------------------------------------------------------------------------------
+Nuestro tp:
+-Cambiar usuarios a objeto (hacer archivo json, hacer funcion con for que convierte los dicc en objetos,
+cambiar todos los endpoints para que funcione con los usuarios con estructura de objeto)
+-Cambiar a ingles
+-Id
+-Hacer los endpoints:
+• PUT: cambiar peso
+• PUT: cambiar contraseña
+• GET: calorias   [no hacer un endpoint de calorias y meter la funcion de calorias dentro del get de recetas]
+• GET: receta (aca usamos api de terceros)
